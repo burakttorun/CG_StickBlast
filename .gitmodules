@@ -1,0 +1,9 @@
+[submodule "Packages/UsefulTools"]
+	path = Packages/UsefulTools
+	url = https://github.com/burakttorun/UsefulTools.git
+[submodule "Packages/UnityEventBus"]
+	path = Packages/UnityEventBus
+	url = https://github.com/burakttorun/UnityEventBus.git
+[submodule "Packages/UnitySingletons"]
+	path = Packages/UnitySingletons
+	url = https://github.com/burakttorun/UnitySingletons.git
