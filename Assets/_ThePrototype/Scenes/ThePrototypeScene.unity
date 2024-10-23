@@ -419,11 +419,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   edgePrefab: {fileID: 8980899437970152604, guid: 746c81a24aec26c45a30bf59e85ea19c, type: 3}
   cellPrefab: {fileID: 5453337031405839979, guid: 066c37355f68311428eb1f694062be0d, type: 3}
-  pointPrefab: {fileID: 6171974442996329211, guid: 00dec3f3a6f13d44f9745dd28bf81de2, type: 3}
+  nodePrefab: {fileID: 6171974442996329211, guid: 00dec3f3a6f13d44f9745dd28bf81de2, type: 3}
   cellSize: 3
   edgeWidth: 0.4
   edgeHeight: 0.4
-  pointSize: 0.9
+  nodeSize: 0.8
 --- !u!4 &1550714089
 Transform:
   m_ObjectHideFlags: 0
