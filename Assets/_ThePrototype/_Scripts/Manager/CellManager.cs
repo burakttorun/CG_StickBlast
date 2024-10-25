@@ -68,7 +68,7 @@ namespace ThePrototype.Scripts.Managers
 
         public void ResetCell()
         {
-            _ownSpriteRenderer.color = Color.yellow;
+            _ownSpriteRenderer.color = new Color(253, 245, 235);
             IsFilled = false;
             edges.ForEach(x => x.MarkAsEmpty());
         }
