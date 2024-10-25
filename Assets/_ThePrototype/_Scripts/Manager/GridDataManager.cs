@@ -4,9 +4,9 @@ namespace ThePrototype.Scripts.Managers
 {
     public class GridDataManager
     {
-        private CellManager[,] _cellGrid;
-        private bool[,] _verticalEdges;
-        private bool[,] _horizontalEdges;
+        public CellManager[,] _cellGrid;
+        public bool[,] _verticalEdges;
+        public bool[,] _horizontalEdges;
 
         public GridDataManager(int rows, int columns)
         {
@@ -21,6 +21,8 @@ namespace ThePrototype.Scripts.Managers
         public void SetCell(int x, int y, CellManager cell)
         {
             _cellGrid[x, y] = cell;
+            cell.Row = x;
+            cell.Column = y;
         }
 
         public bool IsCellFull(int x, int y)

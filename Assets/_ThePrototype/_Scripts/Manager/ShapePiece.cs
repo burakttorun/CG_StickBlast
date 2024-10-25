@@ -18,31 +18,44 @@ namespace ThePrototype.Scripts.Managers
         public bool CanPlaceable { get; set; }
 
         private bool _triggerOnce;
+        private GameObject _currentEdge;
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (!_triggerOnce)
+            if (_currentEdge != null && _currentEdge != other.gameObject)
             {
-                CheckPlaceable(other);
+                return;
             }
+
+            _currentEdge = other.gameObject;
+            CheckPlaceable(other);
         }
 
         private void OnTriggerStay2D(Collider2D other)
         {
+            if (_currentEdge != null && _currentEdge != other.gameObject)
+            {
+                return;
+            }
+
+            _currentEdge = other.gameObject;
             CheckPlaceable(other);
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
+            if (other.gameObject == _currentEdge)
+            {
+                _currentEdge = null;
+            }
+
             ResetInfos();
-            _triggerOnce = false;
         }
 
         private void CheckPlaceable(Collider2D other)
         {
             if (other.TryGetComponent<EdgeManager>(out _overlappedEdge))
             {
-                _triggerOnce = true;
                 if (_overlappedEdge != null && _overlappedEdge.IsVertical == IsVertical && !_overlappedEdge.IsFull)
                 {
                     CanPlaceable = true;
@@ -60,10 +73,5 @@ namespace ThePrototype.Scripts.Managers
             OverlappedEdge = null;
         }
 
-        void OnDrawGizmos()
-        {
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawWireSphere(transform.position, 0.2f);
-        }
     }
 }

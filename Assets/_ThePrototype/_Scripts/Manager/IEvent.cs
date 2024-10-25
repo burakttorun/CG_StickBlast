@@ -14,4 +14,9 @@ namespace ThePrototype.Scripts.Managers
         public bool IsVertical { get; set; }
         public Vector2Int GridPosition { get; set; }
     }
+
+    public struct CellFilled : IEvent
+    {
+        public CellManager ownDatas;
+    }
 }

@@ -32,11 +32,21 @@ namespace ThePrototype.Scripts.Managers
             IsFull = true;
             _ownSpriteRenderer.color = Color.blue;
             EventBus<EdgePlaced>.Publish(new EdgePlaced() { GridPosition = GridPosition, IsVertical = IsVertical });
+            // if (IsVertical)
+            // {
+            //     GameManager.Instance.GridDataManager.SetVerticalEdge(GridPosition.x,GridPosition.y,true);
+            // }
+            // else
+            // {
+            //     GameManager.Instance.GridDataManager.SetHorizontalEdge(GridPosition.x,GridPosition.y,true);
+            //
+            // }
         }
 
         public void MarkAsEmpty()
         {
             IsFull = false;
+            _ownSpriteRenderer.color = Color.white;
         }
     }
 }

@@ -43,20 +43,20 @@ namespace ThePrototype.Scripts.Managers
                         -row * (cellSize + edgeHeight) + startY, 0);
                     Vector3 nodePosition = cellPosition + new Vector3(-1 * ((cellSize / 2) + (edgeWidth / 2)),
                         (cellSize / 2) + (edgeHeight / 2), 0);
-                    CreateNodeAtPosition(nodePosition, col, row);
+                    CreateNodeAtPosition(nodePosition, row, col);
 
                     if (col < _columns)
                     {
                         Vector3 horizontalEdgePosition =
                             cellPosition + new Vector3(0, (cellSize / 2) + (edgeHeight / 2), 0);
-                        CreateEdgeOnPosition(horizontalEdgePosition, col, row, 0, "horizontal");
+                        CreateEdgeOnPosition(horizontalEdgePosition, row, col, 0, "horizontal");
                         _gridDataManager.SetHorizontalEdge(row, col, false);
                     }
 
                     if (row < _rows)
                     {
-                        Vector3 edgePosition = cellPosition - new Vector3((cellSize / 2) + (edgeWidth / 2), 0, 0);
-                        CreateEdgeOnPosition(edgePosition, col, row, 90, "vertical");
+                        Vector3 verticaleEgePosition = cellPosition - new Vector3((cellSize / 2) + (edgeWidth / 2), 0, 0);
+                        CreateEdgeOnPosition(verticaleEgePosition, row, col, 90, "vertical");
                         _gridDataManager.SetVerticalEdge(row, col, false);
                     }
 
@@ -72,22 +72,22 @@ namespace ThePrototype.Scripts.Managers
             }
         }
 
-        private void CreateEdgeOnPosition(Vector3 edgePosition, int col, int row, int angle, string direction)
+        private void CreateEdgeOnPosition(Vector3 edgePosition, int row,int col, int angle, string direction)
         {
             var edge = Instantiate(edgePrefab, edgePosition, Quaternion.Euler(0, 0, angle));
             edge.transform.localScale = new Vector3(cellSize, edgeHeight, 1);
-            edge.name = $"edge_{col}_{row}_{direction}";
+            edge.name = $"edge_{row}_{col}_{direction}";
             var edgeManager = edge.GetComponent<EdgeManager>();
 
             edgeManager.IsVertical = direction == "vertical" ? true : false;
-            edgeManager.GridPosition = new Vector2Int(col, row);
+            edgeManager.GridPosition = new Vector2Int(row, col);
         }
 
-        private void CreateNodeAtPosition(Vector3 position, int col, int row)
+        private void CreateNodeAtPosition(Vector3 position, int row, int col)
         {
             var node = Instantiate(nodePrefab, position, Quaternion.identity);
             node.transform.localScale = new Vector3(nodeSize, nodeSize, 1);
-            node.name = $"node_{col}_{row}";
+            node.name = $"node_{row}_{col}";
         }
     }
 }
