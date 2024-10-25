@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using BasicArchitecturalStructure;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace ThePrototype.Scripts.Managers
@@ -7,6 +10,24 @@ namespace ThePrototype.Scripts.Managers
     {
         public List<EdgeManager> edges = new List<EdgeManager>();
         public bool IsFilled { get; private set; }
+        private EventBinding<EdgePlaced> _edgePlacedEventBinding;
+        private SpriteRenderer _ownSpriteRenderer;
+
+        private void Awake()
+        {
+            _ownSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            _edgePlacedEventBinding = new EventBinding<EdgePlaced>(CheckAndPaintCell);
+        }
+
+        private void OnEnable()
+        {
+            EventBus<EdgePlaced>.Subscribe(_edgePlacedEventBinding);
+        }
+
+        private void OnDisable()
+        {
+            EventBus<EdgePlaced>.Unsubscribe(_edgePlacedEventBinding);
+        }
 
         private void Start()
         {
@@ -15,7 +36,7 @@ namespace ThePrototype.Scripts.Managers
 
         private void FindSurroundingEdges()
         {
-            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 2f);
+            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 1.5f);
 
             foreach (var hitCollider in hitColliders)
             {
@@ -38,13 +59,13 @@ namespace ThePrototype.Scripts.Managers
 
         private void PaintCell()
         {
-            GetComponent<SpriteRenderer>().color = Color.magenta;
+            _ownSpriteRenderer.color = Color.magenta;
         }
 
         void OnDrawGizmos()
         {
             Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(transform.position, 2f);
+            Gizmos.DrawWireSphere(transform.position, 1.5f);
         }
     }
 }

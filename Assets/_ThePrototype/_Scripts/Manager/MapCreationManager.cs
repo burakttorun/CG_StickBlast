@@ -6,13 +6,11 @@ namespace ThePrototype.Scripts.Managers
 {
     public class MapCreationManager : MonoBehaviour
     {
-        [Header("References")]
-        public GameObject edgePrefab;
+        [Header("References")] public GameObject edgePrefab;
         public GameObject cellPrefab;
         public GameObject nodePrefab;
 
-        [Header("Settings")] 
-        [SerializeField] private float cellSize = 1.0f;
+        [Header("Settings")] [SerializeField] private float cellSize = 1.0f;
         [SerializeField] private float edgeWidth = 0.2f;
         [SerializeField] private float edgeHeight = 0.2f;
         [SerializeField] private float nodeSize = 0.2f;
@@ -73,11 +71,16 @@ namespace ThePrototype.Scripts.Managers
                 }
             }
         }
+
         private void CreateEdgeOnPosition(Vector3 edgePosition, int col, int row, int angle, string direction)
         {
-            var leftEdge = Instantiate(edgePrefab, edgePosition, Quaternion.Euler(0, 0, angle));
-            leftEdge.transform.localScale = new Vector3(cellSize, edgeHeight, 1);
-            leftEdge.name = $"edge_{col}_{row}_{direction}";
+            var edge = Instantiate(edgePrefab, edgePosition, Quaternion.Euler(0, 0, angle));
+            edge.transform.localScale = new Vector3(cellSize, edgeHeight, 1);
+            edge.name = $"edge_{col}_{row}_{direction}";
+            var edgeManager = edge.GetComponent<EdgeManager>();
+
+            edgeManager.IsVertical = direction == "vertical" ? true : false;
+            edgeManager.GridPosition = new Vector2Int(col, row);
         }
 
         private void CreateNodeAtPosition(Vector3 position, int col, int row)
