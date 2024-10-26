@@ -61,6 +61,10 @@ namespace ThePrototype.Scripts.Managers
         private void SetPressingState(SendFingerState args)
         {
             _isPressing = args.isPressing;
+            if (_isPressing)
+            {
+                EventBus<ShapeSelected>.Publish(new ShapeSelected() { shapeManager = this });
+            }
         }
 
         private void ClearHoverItemsInfos()
@@ -110,7 +114,7 @@ namespace ThePrototype.Scripts.Managers
                 }
 
                 gameObject.SetActive(false);
-                EventBus<ShapePlaced>.Publish(new ShapePlaced(){shapePieceCount = _shapePieces.Length});
+                EventBus<ShapePlaced>.Publish(new ShapePlaced() { shapePieceCount = _shapePieces.Length });
             }
         }
     }

@@ -13,6 +13,7 @@ namespace ThePrototype.Scripts.Managers
         [field: SerializeField] public int Columns { get; set; }
 
         private EventBinding<CellFilled> _cellFilledEventBinding;
+        private EventBinding<ShapeSelected> _shapeSelectedEventBinding;
         private List<CellManager> _cellManagers;
 
         protected override void Awake()
@@ -20,21 +21,24 @@ namespace ThePrototype.Scripts.Managers
             base.Awake();
             GridDataManager = new GridDataManager(Rows, Columns);
             _cellFilledEventBinding = new EventBinding<CellFilled>(CheckCells);
+            _shapeSelectedEventBinding = new EventBinding<ShapeSelected>(CheckShapePlaceable);
         }
 
         private void OnEnable()
         {
             EventBus<CellFilled>.Subscribe(_cellFilledEventBinding);
+            EventBus<ShapeSelected>.Subscribe(_shapeSelectedEventBinding);
         }
 
         private void OnDisable()
         {
             EventBus<CellFilled>.Unsubscribe(_cellFilledEventBinding);
+            EventBus<ShapeSelected>.Unsubscribe(_shapeSelectedEventBinding);
         }
 
         private void Start()
         {
-            PrintMatrix();
+            // PrintMatrix();
         }
 
         private void CheckCells(CellFilled args)
@@ -78,6 +82,11 @@ namespace ThePrototype.Scripts.Managers
             }
         }
 
+        private void CheckShapePlaceable(ShapeSelected args)
+        {
+            var shape = args.shapeManager;
+            
+        }
 
         private void PrintMatrix()
         {

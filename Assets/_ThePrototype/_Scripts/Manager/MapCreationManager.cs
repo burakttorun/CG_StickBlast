@@ -49,14 +49,14 @@ namespace ThePrototype.Scripts.Managers
                     {
                         Vector3 horizontalEdgePosition =
                             cellPosition + new Vector3(0, (cellSize / 2) + (edgeHeight / 2), 0);
-                        CreateEdgeOnPosition(horizontalEdgePosition, row, col, 0, "horizontal");
+                        CreateEdgeOnPosition(horizontalEdgePosition, row, col, 90, "horizontal");
                         _gridDataManager.SetHorizontalEdge(row, col, false);
                     }
 
                     if (row < _rows)
                     {
                         Vector3 verticaleEgePosition = cellPosition - new Vector3((cellSize / 2) + (edgeWidth / 2), 0, 0);
-                        CreateEdgeOnPosition(verticaleEgePosition, row, col, 90, "vertical");
+                        CreateEdgeOnPosition(verticaleEgePosition, row, col, 0, "vertical");
                         _gridDataManager.SetVerticalEdge(row, col, false);
                     }
 
@@ -75,7 +75,6 @@ namespace ThePrototype.Scripts.Managers
         private void CreateEdgeOnPosition(Vector3 edgePosition, int row,int col, int angle, string direction)
         {
             var edge = Instantiate(edgePrefab, edgePosition, Quaternion.Euler(0, 0, angle));
-            edge.transform.localScale = new Vector3(cellSize, edgeHeight, 1);
             edge.name = $"edge_{row}_{col}_{direction}";
             var edgeManager = edge.GetComponent<EdgeManager>();
 

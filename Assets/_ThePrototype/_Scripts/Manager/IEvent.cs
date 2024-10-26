@@ -24,4 +24,17 @@ namespace ThePrototype.Scripts.Managers
     {
         public int shapePieceCount;
     }
+
+    public struct ShapeSelected : IEvent
+    {
+        public ShapeManager shapeManager;
+    } 
+    public struct ShapeDropped : IEvent
+    {
+    }
+
+    public struct HitCombo : IEvent
+    {
+        public int comboCount;
+    }
 }

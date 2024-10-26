@@ -30,7 +30,7 @@ namespace ThePrototype.Scripts.Managers
         private void OnMouseDown()
         {
             EventBus<SendFingerState>.Publish(new SendFingerState() { isPressing = true });
-
+            EventBus<ShapeSelected>.Publish(new ShapeSelected() );
             _offset = GetMousePosition() - (Vector2)_transform.position;
         }
 
@@ -43,6 +43,8 @@ namespace ThePrototype.Scripts.Managers
         private void OnMouseUp()
         {
             EventBus<SendFingerState>.Publish(new SendFingerState() { isPressing = false });
+            EventBus<ShapeDropped>.Publish(new ShapeDropped() );
+
             _transform.position = _originalPosition;
         }
 

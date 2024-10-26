@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using BasicArchitecturalStructure;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ namespace ThePrototype.Scripts.Managers
         public Vector2Int GridPosition { get; set; }
 
         private SpriteRenderer _ownSpriteRenderer;
+        [SerializeField] private List<Color> _colors;
 
         private void Awake()
         {
@@ -19,34 +21,34 @@ namespace ThePrototype.Scripts.Managers
 
         public void HoverEdge()
         {
-            _ownSpriteRenderer.color = Color.cyan;
+            _ownSpriteRenderer.color = _colors[1];
         }
 
         public void ResetHover()
         {
-            _ownSpriteRenderer.color = Color.white;
+            _ownSpriteRenderer.color = _colors[0];
         }
 
         public void MarkAsFull()
         {
             IsFull = true;
-            _ownSpriteRenderer.color = Color.blue;
+            _ownSpriteRenderer.color = _colors[2];
+
             EventBus<EdgePlaced>.Publish(new EdgePlaced() { GridPosition = GridPosition, IsVertical = IsVertical });
-            // if (IsVertical)
-            // {
-            //     GameManager.Instance.GridDataManager.SetVerticalEdge(GridPosition.x,GridPosition.y,true);
-            // }
-            // else
-            // {
-            //     GameManager.Instance.GridDataManager.SetHorizontalEdge(GridPosition.x,GridPosition.y,true);
-            //
-            // }
+            if (IsVertical)
+            {
+                GameManager.Instance.GridDataManager.SetVerticalEdge(GridPosition.x, GridPosition.y, true);
+            }
+            else
+            {
+                GameManager.Instance.GridDataManager.SetHorizontalEdge(GridPosition.x, GridPosition.y, true);
+            }
         }
 
         public void MarkAsEmpty()
         {
             IsFull = false;
-            _ownSpriteRenderer.color = Color.white;
+            _ownSpriteRenderer.color = _colors[0];
         }
     }
 }
