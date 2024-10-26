@@ -74,6 +74,16 @@ namespace ThePrototype.Scripts.Managers
             edges.ForEach(x => x.MarkAsEmpty());
         }
 
+        public void CleanPaint()
+        {
+            var isFilled = edges.TrueForAll(edge => edge.IsFull);
+            if (IsFilled && !isFilled)
+            {
+                _ownModelTransform.gameObject.SetActive(false);
+                IsFilled = false;
+            }
+        }
+
         void OnDrawGizmos()
         {
             Gizmos.color = Color.blue;

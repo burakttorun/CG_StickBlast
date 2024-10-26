@@ -63,7 +63,18 @@ namespace ThePrototype.Scripts.Managers
 
             if (isMadePointRow)
             {
-                Debug.Log("test row");
+                for (int row = 0; row < Rows; row++)
+                {
+                    GridDataManager._cellGrid[row, cellCol].ResetCell();
+                }
+            }
+
+            if (isMadePointRow || isMadePointCol)
+            {
+                foreach (var cellGrid in GridDataManager._cellGrid)
+                {
+                    cellGrid.CleanPaint();
+                }
             }
         }
 
