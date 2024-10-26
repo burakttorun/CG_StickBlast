@@ -20,9 +20,12 @@ namespace ThePrototype.Scripts.Managers
         {
             _transform = transform;
             _mainCamera = Camera.main;
-            _originalPosition = _transform.position;
         }
 
+        private void Start()
+        {
+            _originalPosition = _transform.position;
+        }
 
         private void OnMouseDown()
         {
@@ -46,6 +49,11 @@ namespace ThePrototype.Scripts.Managers
         private Vector2 GetMousePosition()
         {
             return _mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        }
+
+        public void SetOriginalPosition(Transform location)
+        {
+            _originalPosition = location.position;
         }
     }
 }

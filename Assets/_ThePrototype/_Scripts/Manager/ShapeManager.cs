@@ -110,6 +110,7 @@ namespace ThePrototype.Scripts.Managers
                 }
 
                 gameObject.SetActive(false);
+                EventBus<ShapePlaced>.Publish(new ShapePlaced());
             }
         }
     }

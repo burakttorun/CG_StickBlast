@@ -19,4 +19,9 @@ namespace ThePrototype.Scripts.Managers
     {
         public CellManager ownDatas;
     }
+
+    public struct ShapePlaced : IEvent
+    {
+        
+    }
 }

@@ -13,11 +13,12 @@ namespace ThePrototype.Scripts.Managers
         public int Row { get; set; }
         public int Column { get; set; }
         private EventBinding<EdgePlaced> _edgePlacedEventBinding;
-        private SpriteRenderer _ownSpriteRenderer;
+        private Transform _ownModelTransform;
 
         private void Awake()
         {
-            _ownSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            _ownModelTransform = gameObject.transform.GetChild(0);
+            _ownModelTransform.gameObject.SetActive(false);
             _edgePlacedEventBinding = new EventBinding<EdgePlaced>(CheckAndPaintCell);
         }
 
@@ -61,14 +62,14 @@ namespace ThePrototype.Scripts.Managers
 
         private void PaintCell()
         {
-            _ownSpriteRenderer.color = Color.magenta;
+            _ownModelTransform.gameObject.SetActive(true);
             IsFilled = true;
             EventBus<CellFilled>.Publish(new CellFilled() { ownDatas = this });
         }
 
         public void ResetCell()
         {
-            _ownSpriteRenderer.color = new Color(253, 245, 235);
+            _ownModelTransform.gameObject.SetActive(false);
             IsFilled = false;
             edges.ForEach(x => x.MarkAsEmpty());
         }
