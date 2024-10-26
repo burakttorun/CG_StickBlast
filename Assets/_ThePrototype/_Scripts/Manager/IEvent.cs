@@ -22,6 +22,6 @@ namespace ThePrototype.Scripts.Managers
 
     public struct ShapePlaced : IEvent
     {
-        
+        public int shapePieceCount;
     }
 }

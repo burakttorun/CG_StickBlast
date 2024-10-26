@@ -3,9 +3,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using BasicArchitecturalStructure;
 using ThePrototype.Scripts.Utils;
-using ThePrototype.Scripts.Managers;
 
-namespace ThePrototype.Scripts.Management
+namespace ThePrototype.Scripts.Managers
 {
     public class SelectionManager : BasicSingleton<SelectionManager>
     {
